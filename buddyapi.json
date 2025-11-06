@@ -1,0 +1,547 @@
+{
+  "info": {
+    "name": "Smart Study Buddy API",
+    "description": "AI-powered learning platform with comprehensive API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"testpass123\",\n  \"first_name\": \"Test\",\n  \"last_name\": \"User\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register", ""]
+            }
+          }
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"testpass123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login", ""]
+            }
+          }
+        },
+        {
+          "name": "Logout User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/logout/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "logout", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/profile/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "profile", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notes Management",
+      "item": [
+        {
+          "name": "List Notes (Paginated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/?page=1&page_size=10&search=python&ordering=-created_at",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", ""],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "page_size", "value": "10"},
+                {"key": "search", "value": "python"},
+                {"key": "ordering", "value": "-created_at"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Note",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Python Basics\",\n  \"original_text\": \"Python is a high-level programming language. It supports multiple programming paradigms including procedural, object-oriented, and functional programming. Python is widely used for web development, data science, artificial intelligence, and automation.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Note Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/1/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", "1", ""]
+            }
+          }
+        },
+        {
+          "name": "Upload File",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": ""
+                },
+                {
+                  "key": "title",
+                  "value": "Uploaded Document",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/upload/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "upload", ""]
+            }
+          }
+        },
+        {
+          "name": "Summarize Note (Groq)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"groq\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/1/summarize/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", "1", "summarize", ""]
+            }
+          }
+        },
+        {
+          "name": "Summarize Note (Hugging Face)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"huggingface\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/1/summarize/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", "1", "summarize", ""]
+            }
+          }
+        },
+        {
+          "name": "Summarize Text (Direct)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"Machine learning is a subset of artificial intelligence that focuses on algorithms that can learn from data. It includes supervised learning, unsupervised learning, and reinforcement learning approaches.\",\n  \"method\": \"groq\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/summarize/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "summarize", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Analysis & Features",
+      "item": [
+        {
+          "name": "Analyze Note Content",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"groq\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/1/analyze/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", "1", "analyze", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Study Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/1/recommendations/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", "1", "recommendations", ""]
+            }
+          }
+        },
+        {
+          "name": "Process Note Background",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"groq\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/1/process-background/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", "1", "process-background", ""]
+            }
+          }
+        },
+        {
+          "name": "Check Task Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tasks/task-id-here/status/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tasks", "task-id-here", "status", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Multi-language Support",
+      "item": [
+        {
+          "name": "Get Supported Languages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/languages/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "languages", ""]
+            }
+          }
+        },
+        {
+          "name": "Translate Note to Spanish",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"language\": \"es\",\n  \"method\": \"groq\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/1/translate/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", "1", "translate", ""]
+            }
+          }
+        },
+        {
+          "name": "Translate Note to French",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"language\": \"fr\",\n  \"method\": \"groq\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/1/translate/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", "1", "translate", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Quiz System",
+      "item": [
+        {
+          "name": "List Quizzes (Paginated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/quizzes/?page=1&page_size=10&search=python&ordering=-created_at",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "quizzes", ""],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "page_size", "value": "10"},
+                {"key": "search", "value": "python"},
+                {"key": "ordering", "value": "-created_at"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Quiz Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/quizzes/1/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "quizzes", "1", ""]
+            }
+          }
+        },
+        {
+          "name": "Generate Quiz (Groq Advanced)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"note_id\": 1,\n  \"num_questions\": 5,\n  \"method\": \"groq\",\n  \"question_types\": [\"mcq\", \"tf\", \"fill\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/quiz/generate/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "quiz", "generate", ""]
+            }
+          }
+        },
+        {
+          "name": "Generate Quiz (Hugging Face)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"note_id\": 1,\n  \"num_questions\": 3,\n  \"method\": \"huggingface\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/quiz/generate/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "quiz", "generate", ""]
+            }
+          }
+        },
+        {
+          "name": "Submit Quiz Answers",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quiz_id\": 1,\n  \"answers\": {\n    \"1\": \"Option A\",\n    \"2\": \"True\",\n    \"3\": \"machine learning\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/quiz/submit/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "quiz", "submit", ""]
+            }
+          }
+        },
+        {
+          "name": "List Quiz Attempts (Filtered)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/quiz/attempts/?min_percentage=80&ordering=-created_at",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "quiz", "attempts", ""],
+              "query": [
+                {"key": "min_percentage", "value": "80"},
+                {"key": "ordering", "value": "-created_at"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics & Insights",
+      "item": [
+        {
+          "name": "Get Study Analytics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/analytics/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analytics", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Dashboard Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dashboard", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Advanced Filtering & Search",
+      "item": [
+        {
+          "name": "Search Notes with Filters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/?search=machine learning&has_summary=true&created_after=2024-01-01&ordering=-created_at&page_size=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", ""],
+              "query": [
+                {"key": "search", "value": "machine learning"},
+                {"key": "has_summary", "value": "true"},
+                {"key": "created_after", "value": "2024-01-01"},
+                {"key": "ordering", "value": "-created_at"},
+                {"key": "page_size", "value": "5"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filter Quizzes by Performance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/quiz/attempts/?min_score=8&max_score=10&quiz_title=python",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "quiz", "attempts", ""],
+              "query": [
+                {"key": "min_score", "value": "8"},
+                {"key": "max_score", "value": "10"},
+                {"key": "quiz_title", "value": "python"}
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
