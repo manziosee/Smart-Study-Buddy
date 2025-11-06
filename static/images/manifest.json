@@ -1,0 +1,16 @@
+{
+  "name": "Smart Study Buddy",
+  "short_name": "SSB",
+  "description": "AI-powered learning platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#3B82F6",
+  "theme_color": "#8B5CF6",
+  "icons": [
+    {
+      "src": "/static/images/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+<!-- Custom Cursor Component -->
+<div id="cursor" class="fixed w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full pointer-events-none z-50 mix-blend-difference transition-all duration-300 ease-out opacity-0"></div>
+<div id="cursor-trail" class="fixed w-2 h-2 bg-white rounded-full pointer-events-none z-40 opacity-50 transition-all duration-500 ease-out"></div>
+
+<script>
+// Custom cursor effect
+document.addEventListener('DOMContentLoaded', function() {
+    const cursor = document.getElementById('cursor');
+    const cursorTrail = document.getElementById('cursor-trail');
+    
+    if (cursor && cursorTrail && window.innerWidth > 768) {
+        let mouseX = 0, mouseY = 0;
+        let trailX = 0, trailY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            cursor.style.left = mouseX - 12 + 'px';
+            cursor.style.top = mouseY - 12 + 'px';
+            cursor.style.opacity = '1';
+        });
+        
+        // Smooth trail animation
+        function animateTrail() {
+            trailX += (mouseX - trailX) * 0.1;
+            trailY += (mouseY - trailY) * 0.1;
+            
+            cursorTrail.style.left = trailX - 4 + 'px';
+            cursorTrail.style.top = trailY - 4 + 'px';
+            
+            requestAnimationFrame(animateTrail);
+        }
+        animateTrail();
+        
+        // Cursor interactions
+        const interactiveElements = document.querySelectorAll('a, button, .magnetic, .hover-lift');
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(1.5)';
+                cursor.style.backgroundColor = '#f59e0b';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.backgroundColor = '';
+            });
+        });
+        
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+        });
+    }
+});
+</script>
