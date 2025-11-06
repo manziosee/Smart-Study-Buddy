@@ -1,46 +1,11 @@
-from transformers import pipeline
+# from transformers import pipeline
 import re
 import random
 
 
 def generate_questions_huggingface(text, num_questions=5):
-    """Generate questions using Hugging Face models"""
-    try:
-        # Use T5 for question generation
-        question_generator = pipeline("text2text-generation", model="valhalla/t5-base-qg-hl")
-        
-        # Split text into sentences for better question generation
-        sentences = re.split(r'[.!?]+', text)
-        sentences = [s.strip() for s in sentences if len(s.strip()) > 20]
-        
-        questions = []
-        
-        # Generate questions from different parts of the text
-        for i in range(min(num_questions, len(sentences))):
-            sentence = sentences[i]
-            if len(sentence) > 50:  # Only use substantial sentences
-                try:
-                    result = question_generator(f"generate question: {sentence}", max_length=128)
-                    question_text = result[0]['generated_text']
-                    
-                    # Create multiple choice options
-                    choices = generate_mcq_choices(sentence, question_text)
-                    
-                    questions.append({
-                        'question': question_text,
-                        'type': 'mcq',
-                        'choices': choices,
-                        'correct_answer': choices[0]['text'],  # First choice is correct
-                        'explanation': f"Based on: {sentence[:100]}..."
-                    })
-                except Exception:
-                    continue
-        
-        return questions
-    
-    except Exception as e:
-        # Fallback to simple question generation
-        return generate_simple_questions(text, num_questions)
+    """Simple question generation without transformers"""
+    return generate_simple_questions(text, num_questions)
 
 
 def generate_mcq_choices(context, question):
@@ -128,6 +93,8 @@ def generate_quiz_from_text(text, num_questions=5, method='huggingface'):
         return []
     
     if method == 'huggingface':
-        return generate_questions_huggingface(text, num_questions)
+        from ..notes.utils.huggingface_api import generate_questions_with_hf_api
+        hf_questions = generate_questions_with_hf_api(text, num_questions)
+        return hf_questions if hf_questions else generate_simple_questions(text, num_questions)
     else:
         return generate_simple_questions(text, num_questions)

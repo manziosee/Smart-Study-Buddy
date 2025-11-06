@@ -1,23 +1,35 @@
-from rest_framework import generics, status
+from rest_framework import generics, status, filters
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 from .models import Note
 from .serializers import NoteSerializer, NoteUploadSerializer, SummarizeSerializer, SummaryResponseSerializer, SummarizeNoteSerializer
+import os
 from .utils.extract_text import extract_text_from_file, clean_text
+from .utils.file_processors import process_advanced_file, SUPPORTED_FORMATS
 from .utils.summarize import summarize_text
+from .filters import NoteFilter
 
 
 @extend_schema(
     responses={200: NoteSerializer(many=True), 201: NoteSerializer},
-    description='List user notes or create a new note',
+    description='List user notes with pagination, search, and sorting',
+
     tags=['Notes']
 )
 class NoteListCreateView(generics.ListCreateAPIView):
     serializer_class = NoteSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_class = NoteFilter
+    search_fields = ['title', 'original_text', 'summary']
+    ordering_fields = ['created_at', 'updated_at', 'title']
+    ordering = ['-created_at']
     
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Note.objects.none()
         return Note.objects.filter(user=self.request.user)
     
     def perform_create(self, serializer):
@@ -33,6 +45,8 @@ class NoteDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = NoteSerializer
     
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Note.objects.none()
         return Note.objects.filter(user=self.request.user)
 
 
@@ -54,7 +68,11 @@ class NoteUploadView(generics.CreateAPIView):
             
             try:
                 # Extract text from file
-                extracted_text = extract_text_from_file(file)
+                file_ext = os.path.splitext(file.name)[1].lower()
+                if file_ext in ['.docx', '.pptx', '.json']:
+                    extracted_text = process_advanced_file(file)
+                else:
+                    extracted_text = extract_text_from_file(file)
                 cleaned_text = clean_text(extracted_text)
                 
                 # Create note

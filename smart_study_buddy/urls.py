@@ -22,6 +22,8 @@ urlpatterns = [
     path('api/auth/', include('users.urls')),
     path('api/', include('notes.urls')),
     path('api/', include('quizzes.urls')),
+    path('api/', include('analytics.urls')),
+    path('api/', include('notes.api_urls')),
     
     # Swagger URLs
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

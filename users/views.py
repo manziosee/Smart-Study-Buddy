@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 from .serializers import UserRegistrationSerializer, UserSerializer, LoginSerializer
+from .serializers_api import LogoutResponseSerializer
 
 
 @extend_schema(
@@ -45,7 +46,7 @@ def login_view(request):
 
 
 @extend_schema(
-    responses={200: {'message': str}},
+    responses={200: LogoutResponseSerializer},
     description='Logout current user',
     tags=['Authentication']
 )

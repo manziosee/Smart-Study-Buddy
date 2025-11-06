@@ -1,7 +1,8 @@
-from rest_framework import generics, status
+from rest_framework import generics, status, filters
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 from notes.models import Note
 from .models import Quiz, Question, Choice, QuizAttempt
@@ -10,17 +11,27 @@ from .serializers import (
     SubmitQuizSerializer, QuizResultSerializer
 )
 from .utils.quiz_generator import generate_quiz_from_text
+from .utils.advanced_quiz_generator import generate_advanced_quiz_with_groq
+from .filters import QuizFilter, QuizAttemptFilter
 
 
 @extend_schema(
     responses={200: QuizSerializer(many=True)},
-    description='List all quizzes for the authenticated user',
+    description='List quizzes with pagination, search, and sorting',
+
     tags=['Quizzes']
 )
 class QuizListView(generics.ListAPIView):
     serializer_class = QuizSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_class = QuizFilter
+    search_fields = ['title', 'note__title']
+    ordering_fields = ['created_at', 'title']
+    ordering = ['-created_at']
     
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Quiz.objects.none()
         return Quiz.objects.filter(note__user=self.request.user)
 
 
@@ -63,8 +74,15 @@ def generate_quiz(request):
             # Use summary if available, otherwise use original text
             text_content = note.summary if note.summary else note.original_text
             
-            # Generate questions
-            questions_data = generate_quiz_from_text(text_content, num_questions, method)
+            # Generate questions using advanced AI
+            if method == 'groq':
+                questions_data = generate_advanced_quiz_with_groq(
+                    text_content, 
+                    num_questions, 
+                    question_types=['mcq', 'tf', 'fill']
+                )
+            else:
+                questions_data = generate_quiz_from_text(text_content, num_questions, method)
             
             if not questions_data:
                 return Response(
@@ -189,11 +207,18 @@ def submit_quiz(request):
 
 @extend_schema(
     responses={200: QuizAttemptSerializer(many=True)},
-    description='List all quiz attempts for the authenticated user',
+    description='List quiz attempts with pagination and sorting',
+
     tags=['Quizzes']
 )
 class QuizAttemptListView(generics.ListAPIView):
     serializer_class = QuizAttemptSerializer
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filterset_class = QuizAttemptFilter
+    ordering_fields = ['created_at', 'score', 'quiz__title']
+    ordering = ['-created_at']
     
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return QuizAttempt.objects.none()
         return QuizAttempt.objects.filter(user=self.request.user)
