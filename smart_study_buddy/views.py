@@ -9,10 +9,10 @@ from users.serializers import UserRegistrationSerializer
 
 
 def home(request):
-    """Home page - redirect to dashboard if authenticated"""
+    """Home page - show landing page or redirect to dashboard"""
     if request.user.is_authenticated:
         return redirect('dashboard')
-    return render(request, 'auth/login.html')
+    return render(request, 'landing.html')
 
 
 @login_required

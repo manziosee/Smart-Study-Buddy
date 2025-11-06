@@ -1,0 +1,30 @@
+<!-- Loading Screen Component -->
+<div id="loading-screen" class="fixed inset-0 z-50 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800 flex items-center justify-center">
+    <div class="text-center text-white">
+        <!-- Animated Logo -->
+        <div class="relative mb-8">
+            <div class="w-24 h-24 mx-auto mb-4 relative">
+                <div class="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-ping"></div>
+                <div class="relative w-24 h-24 bg-white rounded-full flex items-center justify-center animate-pulse-glow">
+                    <i class="fas fa-brain text-4xl text-blue-600 animate-bounce-slow"></i>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold gradient-text mb-2">Smart Study Buddy</h2>
+            <p class="text-blue-200">Initializing AI-powered learning...</p>
+        </div>
+        
+        <!-- Loading Animation -->
+        <div class="flex justify-center space-x-2 mb-4">
+            <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+            <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.1s;"></div>
+            <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="w-64 h-2 bg-white bg-opacity-20 rounded-full mx-auto overflow-hidden">
+            <div id="progress-bar" class="h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full transition-all duration-300" style="width: 0%;"></div>
+        </div>
+        
+        <p id="loading-text" class="mt-4 text-sm text-blue-200">Loading...</p>
+    </div>
+</div>

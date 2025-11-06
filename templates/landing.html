@@ -1,0 +1,222 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Smart Study Buddy - AI-Powered Learning{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800 dark:from-blue-800 dark:via-purple-800 dark:to-indigo-900 text-white min-h-screen flex items-center">
+    <div class="absolute inset-0 bg-black opacity-10"></div>
+    
+    <!-- Animated Background Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-20 animate-pulse-slow parallax" data-speed="0.3"></div>
+        <div class="absolute top-3/4 right-1/4 w-48 h-48 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-20 animate-bounce-slow parallax" data-speed="0.5"></div>
+        <div class="absolute top-1/2 left-3/4 w-32 h-32 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-20 animate-float parallax" data-speed="0.2"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 py-20 sm:py-32 z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div data-aos="fade-right" class="text-center lg:text-left">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    <span class="block mb-2 animate-fade-in" data-typewriter data-speed="80">Transform Your Learning with</span>
+                    <span class="gradient-text block animate-pulse-glow text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+                        AI-Powered Study Buddy
+                    </span>
+                </h1>
+                <p class="text-lg sm:text-xl text-blue-100 mb-8 leading-relaxed animate-slide-up px-4 lg:px-0" style="animation-delay: 1s;">
+                    Upload documents, generate instant summaries, and create interactive quizzes. 
+                    Make studying smarter, faster, and more effective with artificial intelligence.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 animate-fade-in px-4 lg:px-0" style="animation-delay: 1.5s;">
+                    <a href="{% url 'register' %}" 
+                       class="magnetic bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:from-yellow-300 hover:to-orange-400 transition-all duration-300 transform hover:scale-105 shadow-2xl text-center animate-glow hover-lift">
+                        <i class="fas fa-rocket mr-2"></i>Get Started Free
+                    </a>
+                    <a href="#features" 
+                       class="magnetic glass-effect border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 text-center hover-lift">
+                        <i class="fas fa-play mr-2"></i>Learn More
+                    </a>
+                </div>
+                <div class="flex items-center mt-8 space-x-6 text-blue-200">
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle mr-2 text-green-400"></i>
+                        <span>Free to use</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle mr-2 text-green-400"></i>
+                        <span>No credit card</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle mr-2 text-green-400"></i>
+                        <span>Instant setup</span>
+                    </div>
+                </div>
+            </div>
+            <div class="relative" data-aos="fade-left">
+                <div class="relative z-10 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+                        <div class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                        <div class="h-4 bg-blue-200 dark:bg-blue-800 rounded w-3/4 animate-pulse"></div>
+                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 animate-pulse"></div>
+                        <div class="bg-green-100 dark:bg-green-900 p-4 rounded-lg">
+                            <div class="flex items-center text-green-800 dark:text-green-300">
+                                <i class="fas fa-magic mr-2"></i>
+                                <span class="font-semibold">AI Summary Generated!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute -top-4 -right-4 w-72 h-72 bg-gradient-to-r from-pink-500 to-violet-500 rounded-full opacity-20 animate-pulse-slow"></div>
+                <div class="absolute -bottom-8 -left-8 w-64 h-64 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full opacity-20 animate-bounce-slow"></div>
+            </div>
+        </div>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="currentColor" class="text-gray-50 dark:text-gray-900"/>
+        </svg>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-20 bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Powerful Features for Smarter Learning
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                Discover how AI can revolutionize your study experience with our comprehensive suite of learning tools.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-file-upload text-2xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Smart File Upload</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Upload PDFs, Word docs, or text files. Our AI instantly extracts and processes your content for analysis.
+                </p>
+                <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>PDF text extraction</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Multiple file formats</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Drag & drop interface</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-magic text-2xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">AI Summarization</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Transform lengthy documents into concise, key-point summaries using advanced AI models.
+                </p>
+                <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Hugging Face models</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Key concept extraction</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Customizable length</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-question-circle text-2xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Quiz Generation</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Automatically generate interactive quizzes from your notes to test and reinforce your knowledge.
+                </p>
+                <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Multiple choice questions</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Instant scoring</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Progress tracking</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How it Works Section -->
+<section class="py-20 bg-white dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                How It Works
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-gray-400">
+                Get started in just three simple steps
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="relative mb-8">
+                    <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <span class="text-2xl font-bold text-white">1</span>
+                    </div>
+                    <div class="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 transform -translate-y-1/2"></div>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Upload Your Content</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    Simply drag and drop your study materials or paste text directly into our platform.
+                </p>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative mb-8">
+                    <div class="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <span class="text-2xl font-bold text-white">2</span>
+                    </div>
+                    <div class="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-purple-500 to-pink-600 transform -translate-y-1/2"></div>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">AI Processing</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    Our advanced AI analyzes your content and generates comprehensive summaries and insights.
+                </p>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="relative mb-8">
+                    <div class="w-20 h-20 bg-gradient-to-r from-pink-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <span class="text-2xl font-bold text-white">3</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Study & Practice</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    Review summaries, take generated quizzes, and track your learning progress over time.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-800 dark:to-purple-800">
+    <div class="max-w-4xl mx-auto text-center px-4" data-aos="fade-up">
+        <h2 class="text-4xl font-bold text-white mb-6">
+            Ready to Transform Your Learning?
+        </h2>
+        <p class="text-xl text-blue-100 mb-8">
+            Join thousands of students who are already studying smarter with AI-powered tools.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'register' %}" 
+               class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl">
+                <i class="fas fa-user-plus mr-2"></i>Create Free Account
+            </a>
+            <a href="{% url 'login' %}" 
+               class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300">
+                <i class="fas fa-sign-in-alt mr-2"></i>Sign In
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -5,76 +5,111 @@
 {% block content %}
 <div class="space-y-6">
     <!-- Welcome Section -->
-    <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-white">
-        <h1 class="text-3xl font-bold mb-2">Welcome back, {{ user.username }}! 🧠</h1>
-        <p class="text-blue-100">Ready to supercharge your learning with AI?</p>
+    <div class="relative bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-800 dark:to-purple-800 rounded-2xl p-8 text-white shadow-2xl animate-fade-in overflow-hidden" data-aos="fade-down">
+        <!-- Animated background particles -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-4 right-8 w-16 h-16 bg-white rounded-full animate-float"></div>
+            <div class="absolute bottom-4 left-8 w-12 h-12 bg-yellow-300 rounded-full animate-float-delayed"></div>
+            <div class="absolute top-1/2 right-1/4 w-8 h-8 bg-pink-300 rounded-full animate-bounce-slow"></div>
+        </div>
+        
+        <div class="relative z-10 flex items-center justify-between">
+            <div>
+                <h1 class="text-4xl font-bold mb-2">
+                    <span class="gradient-text" data-typewriter data-speed="80">Welcome back, {{ user.username }}!</span> 
+                    <span class="animate-bounce-slow ml-2">🧠</span>
+                </h1>
+                <p class="text-blue-100 text-lg animate-fade-in" style="animation-delay: 1s;">Ready to supercharge your learning with AI?</p>
+            </div>
+            <div class="hidden md:block">
+                <div class="magnetic w-24 h-24 glass-effect rounded-full flex items-center justify-center animate-pulse-glow hover-lift">
+                    <i class="fas fa-graduation-cap text-3xl text-white"></i>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Quick Actions -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border dark:border-gray-700" data-aos="fade-up" data-aos-delay="100">
             <div class="flex items-center mb-4">
-                <i class="fas fa-upload text-2xl text-green-600 mr-3"></i>
-                <h3 class="text-lg font-semibold">Upload Document</h3>
+                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-upload text-xl text-white"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Upload Document</h3>
             </div>
-            <p class="text-gray-600 mb-4">Upload PDF, TXT, or MD files to extract and summarize content.</p>
-            <a href="{% url 'upload_file' %}" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 inline-block">
-                <i class="fas fa-plus mr-1"></i>Upload File
+            <p class="text-gray-600 dark:text-gray-400 mb-6">Upload PDF, TXT, or MD files to extract and summarize content.</p>
+            <a href="{% url 'upload_file' %}" class="magnetic bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-lg hover:from-green-700 hover:to-emerald-700 inline-block transition-all duration-200 transform hover:scale-105 shadow-lg animate-glow">
+                <i class="fas fa-plus mr-2"></i>Upload File
             </a>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border dark:border-gray-700" data-aos="fade-up" data-aos-delay="200">
             <div class="flex items-center mb-4">
-                <i class="fas fa-edit text-2xl text-blue-600 mr-3"></i>
-                <h3 class="text-lg font-semibold">Create Note</h3>
+                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-edit text-xl text-white"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Create Note</h3>
             </div>
-            <p class="text-gray-600 mb-4">Write your own notes and generate AI summaries.</p>
-            <a href="{% url 'create_note' %}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 inline-block">
-                <i class="fas fa-plus mr-1"></i>New Note
+            <p class="text-gray-600 dark:text-gray-400 mb-6">Write your own notes and generate AI summaries.</p>
+            <a href="{% url 'create_note' %}" class="magnetic bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-lg hover:from-blue-700 hover:to-cyan-700 inline-block transition-all duration-200 transform hover:scale-105 shadow-lg animate-glow">
+                <i class="fas fa-plus mr-2"></i>New Note
             </a>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border dark:border-gray-700" data-aos="fade-up" data-aos-delay="300">
             <div class="flex items-center mb-4">
-                <i class="fas fa-question-circle text-2xl text-purple-600 mr-3"></i>
-                <h3 class="text-lg font-semibold">Generate Quiz</h3>
+                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-question-circle text-xl text-white"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Generate Quiz</h3>
             </div>
-            <p class="text-gray-600 mb-4">Create interactive quizzes from your notes.</p>
-            <a href="{% url 'notes_list' %}" class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 inline-block">
-                <i class="fas fa-brain mr-1"></i>Make Quiz
+            <p class="text-gray-600 dark:text-gray-400 mb-6">Create interactive quizzes from your notes.</p>
+            <a href="{% url 'notes_list' %}" class="magnetic bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 inline-block transition-all duration-200 transform hover:scale-105 shadow-lg animate-glow">
+                <i class="fas fa-brain mr-2"></i>Make Quiz
             </a>
         </div>
     </div>
 
     <!-- Stats Overview -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div class="bg-white rounded-lg shadow-md p-4 text-center">
-            <i class="fas fa-file-alt text-3xl text-blue-600 mb-2"></i>
-            <div class="text-2xl font-bold text-gray-800">{{ stats.notes_count }}</div>
-            <div class="text-gray-600">Notes</div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border dark:border-gray-700" data-aos="zoom-in" data-aos-delay="100">
+            <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-file-alt text-2xl text-white"></i>
+            </div>
+            <div class="text-3xl font-bold text-gray-800 dark:text-white mb-2 counter" data-target="{{ stats.notes_count }}">0</div>
+            <div class="text-gray-600 dark:text-gray-400 font-medium">Notes</div>
         </div>
         
-        <div class="bg-white rounded-lg shadow-md p-4 text-center">
-            <i class="fas fa-magic text-3xl text-green-600 mb-2"></i>
-            <div class="text-2xl font-bold text-gray-800">{{ stats.summaries_count }}</div>
-            <div class="text-gray-600">Summaries</div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border dark:border-gray-700" data-aos="zoom-in" data-aos-delay="200">
+            <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-magic text-2xl text-white"></i>
+            </div>
+            <div class="text-3xl font-bold text-gray-800 dark:text-white mb-2 counter" data-target="{{ stats.summaries_count }}">0</div>
+            <div class="text-gray-600 dark:text-gray-400 font-medium">Summaries</div>
         </div>
         
-        <div class="bg-white rounded-lg shadow-md p-4 text-center">
-            <i class="fas fa-question-circle text-3xl text-purple-600 mb-2"></i>
-            <div class="text-2xl font-bold text-gray-800">{{ stats.quizzes_count }}</div>
-            <div class="text-gray-600">Quizzes</div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border dark:border-gray-700" data-aos="zoom-in" data-aos-delay="300">
+            <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-question-circle text-2xl text-white"></i>
+            </div>
+            <div class="text-3xl font-bold text-gray-800 dark:text-white mb-2 counter" data-target="{{ stats.quizzes_count }}">0</div>
+            <div class="text-gray-600 dark:text-gray-400 font-medium">Quizzes</div>
         </div>
         
-        <div class="bg-white rounded-lg shadow-md p-4 text-center">
-            <i class="fas fa-trophy text-3xl text-yellow-600 mb-2"></i>
-            <div class="text-2xl font-bold text-gray-800">{{ stats.quiz_attempts }}</div>
-            <div class="text-gray-600">Quiz Attempts</div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border dark:border-gray-700" data-aos="zoom-in" data-aos-delay="400">
+            <div class="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-trophy text-2xl text-white"></i>
+            </div>
+            <div class="text-3xl font-bold text-gray-800 dark:text-white mb-2 counter" data-target="{{ stats.quiz_attempts }}">0</div>
+            <div class="text-gray-600 dark:text-gray-400 font-medium">Quiz Attempts</div>
         </div>
     </div>
 
     <!-- Recent Activity -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Recent Notes -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 border dark:border-gray-700 hover-lift" data-aos="fade-up" data-aos-delay="100">
         <!-- Recent Notes -->
         <div class="bg-white rounded-lg shadow-md p-6">
             <h3 class="text-lg font-semibold mb-4 flex items-center">
@@ -123,4 +158,43 @@
         </div>
     </div>
 </div>
+
+<script>
+// Counter animation for stats
+document.addEventListener('DOMContentLoaded', function() {
+    const counters = document.querySelectorAll('.counter');
+    
+    const animateCounter = (counter) => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const increment = target / 50;
+        let current = 0;
+        
+        const updateCounter = () => {
+            if (current < target) {
+                current += increment;
+                counter.textContent = Math.ceil(current);
+                setTimeout(updateCounter, 30);
+            } else {
+                counter.textContent = target;
+            }
+        };
+        
+        updateCounter();
+    };
+    
+    // Intersection Observer for counter animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+    
+    counters.forEach(counter => {
+        observer.observe(counter);
+    });
+});
+</script>
 {% endblock %}
