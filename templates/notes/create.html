@@ -1,0 +1,93 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Create Note - Smart Study Buddy{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="text-center mb-6">
+            <i class="fas fa-edit text-5xl text-blue-600 mb-4"></i>
+            <h2 class="text-2xl font-bold text-gray-900">Create New Note</h2>
+            <p class="text-gray-600 mt-2">Write your study notes and generate AI summaries</p>
+        </div>
+
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            
+            <div>
+                <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                <input type="text" id="title" name="title" required
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="Enter a title for your note">
+            </div>
+
+            <div>
+                <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                <textarea id="content" name="content" rows="12" required
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="Write your note content here..."></textarea>
+                <p class="text-sm text-gray-500 mt-1">You can use this for lecture notes, study materials, or any text you want to analyze.</p>
+            </div>
+
+            <div class="flex items-center justify-between pt-4">
+                <a href="{% url 'notes_list' %}" class="text-gray-600 hover:text-gray-800">
+                    <i class="fas fa-arrow-left mr-1"></i>Back to Notes
+                </a>
+                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <i class="fas fa-save mr-2"></i>Create Note
+                </button>
+            </div>
+        </form>
+
+        <!-- Tips -->
+        <div class="mt-8 bg-blue-50 rounded-lg p-4">
+            <h3 class="text-sm font-medium text-blue-900 mb-2">💡 Tips for better notes:</h3>
+            <ul class="text-sm text-blue-800 space-y-1">
+                <li>• Use clear headings and bullet points</li>
+                <li>• Include key concepts and definitions</li>
+                <li>• Add examples and explanations</li>
+                <li>• Keep paragraphs focused on single topics</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-save functionality (optional)
+let autoSaveTimer;
+const titleInput = document.getElementById('title');
+const contentTextarea = document.getElementById('content');
+
+function autoSave() {
+    // This could save to localStorage or make an AJAX call
+    const data = {
+        title: titleInput.value,
+        content: contentTextarea.value
+    };
+    localStorage.setItem('draft_note', JSON.stringify(data));
+}
+
+// Load draft if exists
+document.addEventListener('DOMContentLoaded', function() {
+    const draft = localStorage.getItem('draft_note');
+    if (draft) {
+        const data = JSON.parse(draft);
+        if (data.title) titleInput.value = data.title;
+        if (data.content) contentTextarea.value = data.content;
+    }
+});
+
+// Auto-save on input
+[titleInput, contentTextarea].forEach(element => {
+    element.addEventListener('input', function() {
+        clearTimeout(autoSaveTimer);
+        autoSaveTimer = setTimeout(autoSave, 2000); // Save after 2 seconds of inactivity
+    });
+});
+
+// Clear draft on successful submit
+document.querySelector('form').addEventListener('submit', function() {
+    localStorage.removeItem('draft_note');
+});
+</script>
+{% endblock %}

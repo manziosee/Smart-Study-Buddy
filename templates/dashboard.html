@@ -1,0 +1,126 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Dashboard - Smart Study Buddy{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Welcome Section -->
+    <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-white">
+        <h1 class="text-3xl font-bold mb-2">Welcome back, {{ user.username }}! 🧠</h1>
+        <p class="text-blue-100">Ready to supercharge your learning with AI?</p>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-upload text-2xl text-green-600 mr-3"></i>
+                <h3 class="text-lg font-semibold">Upload Document</h3>
+            </div>
+            <p class="text-gray-600 mb-4">Upload PDF, TXT, or MD files to extract and summarize content.</p>
+            <a href="{% url 'upload_file' %}" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 inline-block">
+                <i class="fas fa-plus mr-1"></i>Upload File
+            </a>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-edit text-2xl text-blue-600 mr-3"></i>
+                <h3 class="text-lg font-semibold">Create Note</h3>
+            </div>
+            <p class="text-gray-600 mb-4">Write your own notes and generate AI summaries.</p>
+            <a href="{% url 'create_note' %}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 inline-block">
+                <i class="fas fa-plus mr-1"></i>New Note
+            </a>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-question-circle text-2xl text-purple-600 mr-3"></i>
+                <h3 class="text-lg font-semibold">Generate Quiz</h3>
+            </div>
+            <p class="text-gray-600 mb-4">Create interactive quizzes from your notes.</p>
+            <a href="{% url 'notes_list' %}" class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 inline-block">
+                <i class="fas fa-brain mr-1"></i>Make Quiz
+            </a>
+        </div>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-lg shadow-md p-4 text-center">
+            <i class="fas fa-file-alt text-3xl text-blue-600 mb-2"></i>
+            <div class="text-2xl font-bold text-gray-800">{{ stats.notes_count }}</div>
+            <div class="text-gray-600">Notes</div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-4 text-center">
+            <i class="fas fa-magic text-3xl text-green-600 mb-2"></i>
+            <div class="text-2xl font-bold text-gray-800">{{ stats.summaries_count }}</div>
+            <div class="text-gray-600">Summaries</div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-4 text-center">
+            <i class="fas fa-question-circle text-3xl text-purple-600 mb-2"></i>
+            <div class="text-2xl font-bold text-gray-800">{{ stats.quizzes_count }}</div>
+            <div class="text-gray-600">Quizzes</div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-4 text-center">
+            <i class="fas fa-trophy text-3xl text-yellow-600 mb-2"></i>
+            <div class="text-2xl font-bold text-gray-800">{{ stats.quiz_attempts }}</div>
+            <div class="text-gray-600">Quiz Attempts</div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Recent Notes -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold mb-4 flex items-center">
+                <i class="fas fa-file-alt text-blue-600 mr-2"></i>Recent Notes
+            </h3>
+            {% if recent_notes %}
+                <div class="space-y-3">
+                    {% for note in recent_notes %}
+                        <div class="border-l-4 border-blue-500 pl-4 py-2">
+                            <h4 class="font-medium">{{ note.title }}</h4>
+                            <p class="text-sm text-gray-600">{{ note.created_at|date:"M d, Y" }}</p>
+                            <div class="mt-2 space-x-2">
+                                <a href="{% url 'note_detail' note.id %}" class="text-blue-600 hover:underline text-sm">View</a>
+                                {% if not note.summary %}
+                                    <a href="{% url 'summarize_note' note.id %}" class="text-green-600 hover:underline text-sm">Summarize</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-gray-500">No notes yet. <a href="{% url 'create_note' %}" class="text-blue-600 hover:underline">Create your first note!</a></p>
+            {% endif %}
+        </div>
+
+        <!-- Recent Quizzes -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold mb-4 flex items-center">
+                <i class="fas fa-question-circle text-purple-600 mr-2"></i>Recent Quizzes
+            </h3>
+            {% if recent_quizzes %}
+                <div class="space-y-3">
+                    {% for quiz in recent_quizzes %}
+                        <div class="border-l-4 border-purple-500 pl-4 py-2">
+                            <h4 class="font-medium">{{ quiz.title }}</h4>
+                            <p class="text-sm text-gray-600">{{ quiz.created_at|date:"M d, Y" }}</p>
+                            <div class="mt-2">
+                                <a href="{% url 'quiz_detail' quiz.id %}" class="text-purple-600 hover:underline text-sm">Take Quiz</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-gray-500">No quizzes yet. <a href="{% url 'notes_list' %}" class="text-purple-600 hover:underline">Generate from your notes!</a></p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
