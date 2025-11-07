@@ -111,11 +111,8 @@
 
 <script>
 function generateQuiz(noteId) {
-    // This would typically make an AJAX call to generate a quiz
-    // For now, we'll redirect to a quiz generation page
-    if (confirm('Generate a quiz from this note? This may take a few moments.')) {
-        window.location.href = `/api/quiz/generate/?note_id=${noteId}`;
-    }
+    // Quiz generation feature - will be implemented later
+    alert('Quiz generation feature coming soon!');
 }
 </script>
 {% endblock %}

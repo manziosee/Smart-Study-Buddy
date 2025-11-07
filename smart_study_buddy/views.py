@@ -39,35 +39,12 @@ def dashboard(request):
 
 
 def login_view(request):
-    """Login view"""
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        
-        user = authenticate(request, username=email, password=password)
-        if user:
-            login(request, user)
-            messages.success(request, 'Welcome back!')
-            return redirect('dashboard')
-        else:
-            messages.error(request, 'Invalid email or password.')
-    
+    """Login view - Frontend form only"""
     return render(request, 'auth/login.html')
 
 
 def register_view(request):
-    """Registration view"""
-    if request.method == 'POST':
-        serializer = UserRegistrationSerializer(data=request.POST)
-        if serializer.is_valid():
-            user = serializer.save()
-            messages.success(request, 'Account created successfully! Please log in.')
-            return redirect('login')
-        else:
-            for field, errors in serializer.errors.items():
-                for error in errors:
-                    messages.error(request, f'{field}: {error}')
-    
+    """Registration view - Frontend form only"""
     return render(request, 'auth/register.html')
 
 

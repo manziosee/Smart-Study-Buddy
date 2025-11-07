@@ -3,70 +3,94 @@
 {% block title %}Sign Up - Smart Study Buddy{% endblock %}
 
 {% block content %}
-<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
     <div class="max-w-md w-full space-y-8">
-        <div class="text-center">
-            <i class="fas fa-brain text-6xl text-blue-600 mb-4"></i>
-            <h2 class="text-3xl font-extrabold text-gray-900">Join Smart Study Buddy</h2>
+        <div class="text-center" data-aos="fade-down">
+            <div class="relative">
+                <i class="fas fa-brain text-6xl text-black mb-4 animate-pulse-slow"></i>
+                <div class="absolute -top-2 -right-2 w-4 h-4 bg-black rounded-full animate-ping"></div>
+            </div>
+            <h2 class="text-3xl font-extrabold text-black">Join Smart Study Buddy</h2>
             <p class="mt-2 text-gray-600">Create your account and start learning smarter</p>
         </div>
         
-        <form class="mt-8 space-y-6" method="post">
-            {% csrf_token %}
-            <div class="space-y-4">
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                    <input id="username" name="username" type="text" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                           placeholder="Choose a username">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-200" data-aos="fade-up">
+            <form class="space-y-6" id="registerForm">
+                <div class="space-y-4">
+                    <div>
+                        <label for="first_name" class="block text-sm font-medium text-black mb-2">First Name</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <input id="first_name" name="first_name" type="text" required 
+                                   class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-black bg-white text-black transition-all duration-200"
+                                   placeholder="Enter your first name">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="last_name" class="block text-sm font-medium text-black mb-2">Last Name</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <input id="last_name" name="last_name" type="text" required 
+                                   class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-black bg-white text-black transition-all duration-200"
+                                   placeholder="Enter your last name">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-black mb-2">Email Address</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-400"></i>
+                            </div>
+                            <input id="email" name="email" type="email" required 
+                                   class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-black bg-white text-black transition-all duration-200"
+                                   placeholder="Enter your email">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-black mb-2">Password</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input id="password" name="password" type="password" required 
+                                   class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-black bg-white text-black transition-all duration-200"
+                                   placeholder="Create a password">
+                        </div>
+                    </div>
                 </div>
-                
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                    <input id="email" name="email" type="email" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                           placeholder="Enter your email">
-                </div>
-                
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input id="password" name="password" type="password" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                           placeholder="Create a password">
-                </div>
-                
-                <div>
-                    <label for="password_confirm" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                    <input id="password_confirm" name="password_confirm" type="password" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                           placeholder="Confirm your password">
-                </div>
-            </div>
 
-            <div class="flex items-center">
-                <input id="terms" name="terms" type="checkbox" required
-                       class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                <label for="terms" class="ml-2 block text-sm text-gray-900">
-                    I agree to the <a href="#" class="text-blue-600 hover:text-blue-500">Terms of Service</a> and 
-                    <a href="#" class="text-blue-600 hover:text-blue-500">Privacy Policy</a>
-                </label>
-            </div>
+                <div class="flex items-center">
+                    <input id="terms" name="terms" type="checkbox" required
+                           class="h-4 w-4 text-black focus:ring-black border-gray-300 rounded bg-white">
+                    <label for="terms" class="ml-2 block text-sm text-black">
+                        I agree to the <a href="#" class="text-black hover:text-gray-600">Terms of Service</a> and 
+                        <a href="#" class="text-black hover:text-gray-600">Privacy Policy</a>
+                    </label>
+                </div>
 
-            <div>
-                <button type="submit" 
-                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    <i class="fas fa-user-plus mr-2"></i>
-                    Create Account
-                </button>
-            </div>
+                <div>
+                    <button type="submit" 
+                            class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-all duration-200 transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Create Account
+                    </button>
+                </div>
 
-            <div class="text-center">
-                <p class="text-sm text-gray-600">
-                    Already have an account? 
-                    <a href="{% url 'login' %}" class="font-medium text-blue-600 hover:text-blue-500">Sign in here</a>
-                </p>
-            </div>
-        </form>
+                <div class="text-center">
+                    <p class="text-sm text-gray-600">
+                        Already have an account? 
+                        <a href="{% url 'login' %}" class="font-medium text-black hover:text-gray-600 transition-colors duration-200">Sign in here</a>
+                    </p>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}
