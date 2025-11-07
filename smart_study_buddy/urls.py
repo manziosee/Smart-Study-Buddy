@@ -20,6 +20,7 @@ urlpatterns = [
     
     # API URLs
     path('api/auth/', include('users.urls')),
+    path('api/jwt/', include('users.jwt_urls')),
     path('api/', include('notes.urls')),
     path('api/', include('quizzes.urls')),
     path('api/', include('analytics.urls')),
